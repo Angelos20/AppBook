@@ -99,6 +99,11 @@ ApplicationWindow {
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 10
+                background: Rectangle{
+                    color: blue
+                    radius: 20
+                    border.color: black
+                }
             }
 
     }

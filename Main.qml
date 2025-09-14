@@ -90,36 +90,115 @@ ApplicationWindow {
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: Qt.quit()
             }
-
         }
         Item { Layout.fillHeight: true }
 
-            Label {
-                text: "version 1.0.0"
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 10
-                background: Rectangle{
-                    color: blue
-                    radius: 20
-                    border.color: black
-                }
+        Label {
+            text: "version 1.0.0"
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 10
+            background: grey
+            ColorAnimation {
+                from: "white"
+                to: "black"
+                duration: 200
             }
-
+        }
     }
 
     // Pages définies comme composants réutilisables
     Component {
         id: coursPage
         Page {
-            title: "Cours"
-            Label {
-                anchors.centerIn: parent
-                text: "Bienvenue dans le cours !"
-            }
+            title: "Accueil"
 
+            ScrollView {
+                anchors.fill: parent
+
+                Column {
+                    spacing: 20
+                    width: parent.width
+
+                    // Image de couverture
+                    Image {
+                        source: "/home/joy/MyBook/build/image/hacktheplanetNFA.png"   // place ton image dans le dossier qml.qrc
+                        width: parent.width
+                        height: 150
+                        fillMode: Image.PreserveAspectCrop
+                    }
+
+                    // Profil
+                    Row {
+                        spacing: 10
+                        anchors.horizontalCenter: parent.horizontalCenter
+
+                        Image {
+                            source: "qrc:/images/avatar.png"
+                            width: 60
+                            height: 60
+                            fillMode: Image.PreserveAspectFit
+                           // radius: 30  // arrondi => cercle
+                        }
+
+                        Column {
+                            Text { text: "Bienvenue, Angelos !" ; font.pixelSize: 18 }
+                            Text { text: "Heureux de vous revoir"; color: "grey" }
+                        }
+                    }
+
+                    Rectangle { height: 1; width: parent.width; color: "lightgrey" }
+
+                    // Simuler un "post" style Facebook
+                    Column {
+                        spacing: 10
+                        width: parent.width * 0.9
+                        anchors.horizontalCenter: parent.horizontalCenter
+
+                        Text { text: "📚 Nouveau cours disponible !" ; font.pixelSize: 16 ; wrapMode: Text.WordWrap }
+
+                        Image {
+                            source: "qrc:/images/course1.png"
+                            width: parent.width
+                            height: 200
+                            fillMode: Image.PreserveAspectFit
+                        }
+
+                        Button {
+                            text: "Lire le cours"
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            onClicked: console.log("Cours ouvert")
+                        }
+                    }
+
+                    Rectangle { height: 1; width: parent.width; color: "lightgrey" }
+
+                    // Deuxième "post"
+                    Column {
+                        spacing: 10
+                        width: parent.width * 0.9
+                        anchors.horizontalCenter: parent.horizontalCenter
+
+                        Text { text: "💡 Exercice du jour !" ; font.pixelSize: 16 }
+
+                        Image {
+                            source: "qrc:/images/exercice.png"
+                            width: parent.width
+                            height: 200
+                            fillMode: Image.PreserveAspectFit
+                        }
+
+                        Button {
+                            text: "Faire l’exercice"
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            onClicked: stack.replace(exercicesPage)
+                        }
+                    }
+                }
+            }
         }
     }
+
 
     Component {
         id: exercicesPage
